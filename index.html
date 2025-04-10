@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系統警告！</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 偽裝成 iOS/Android 系統警告 */
+        .warning {
+            background: #f0f0f0;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+        }
+
+        .warning h1 {
+            color: red;
+            font-size: 24px;
+        }
+
+        .warning p {
+            margin: 15px 0;
+        }
+
+        .btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 假裝當機的效果 */
+        .crash-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .error-text {
+            color: #0f0;
+            font-family: monospace;
+            font-size: 16px;
+            white-space: pre;
+            animation: glitch 0.5s infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 red; }
+            25% { text-shadow: -2px 0 blue; }
+            50% { text-shadow: 2px 0 green; }
+            100% { text-shadow: -2px 0 yellow; }
+        }
+
+        /* 最後的生日祝福 */
+        .birthday-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            z-index: 200;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            animation: rainbow 3s infinite;
+        }
+
+        @keyframes rainbow {
+            0% { background: #ff0000; }
+            20% { background: #ff9900; }
+            40% { background: #33cc33; }
+            60% { background: #3399ff; }
+            80% { background: #cc33ff; }
+            100% { background: #ff0066; }
+        }
+
+        .birthday-message h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .birthday-message img {
+            max-width: 200px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 偽裝的系統警告 -->
+    <div class="warning" id="warning">
+        <h1>⚠️ 系統警告 ⚠️</h1>
+        <p>偵測到 <strong>壽星能量過載</strong>！</p>
+        <p>您的生日模組即將崩潰！</p>
+        <p>請立即點擊下方按鈕進行緊急慶祝！</p>
+        <button class="btn" id="panic-btn">立即修復</button>
+    </div>
+
+    <!-- 假裝當機的畫面 -->
+    <div class="crash-screen" id="crash-screen">
+        <div class="error-text" id="error-text">
+            ERROR: SYSTEM FAILURE<br>
+            MEMORY CORRUPTED<br>
+            BIRTHDAY_PROTOCOL.EXE CRASHED<br>
+            LOADING RECOVERY...<br>
+            ███████████ 99%<br>
+            WARNING: TOO MUCH AWESOMENESS<br>
+            REBOOTING...<br>
+            (╯°□°）╯︵ ┻━┻<br>
+        </div>
+    </div>
+
+    <!-- 最後的生日祝福 -->
+    <div class="birthday-message" id="birthday-message">
+        <h1>騙你的啦～🎉</h1>
+        <p>生日快樂！</p>
+        <p>祝你今天被祝福轟炸！</p>
+        <!-- 可以放朋友的照片 -->
+        <img src="https://photos.fife.usercontent.google.com/pw/AP1GczOu2y6ke4J2Vg54h-BNZd-fkxB8iMnPUhM-Yq7HhZBsqQDWHaQNhnm-KQ=w878-h1562-s-no-gm?authuser=0" alt="生日快樂">
+    </div>
+
+    <script>
+        const panicBtn = document.getElementById("panic-btn");
+        const warning = document.getElementById("warning");
+        const crashScreen = document.getElementById("crash-screen");
+        const errorText = document.getElementById("error-text");
+        const birthdayMessage = document.getElementById("birthday-message");
+
+        // 點擊「立即修復」按鈕後觸發惡搞效果
+        panicBtn.addEventListener("click", function() {
+            // 先隱藏警告
+            warning.style.display = "none";
+
+            // 顯示當機畫面
+            crashScreen.style.display = "block";
+
+            // 亂碼自動滾動（模擬系統崩潰）
+            let fakeErrors = [
+                "ERROR: CAKE_NOT_FOUND",
+                "WARNING: TOO_MANY_CANDLES",
+                "SYSTEM OVERLOAD: HAPPINESS LEVEL 999%",
+                "MEMORY DUMP: FRIEND_SHIP.EXE CRASHED",
+                "RECOVERING... JUST KIDDING!",
+            ];
+
+            let errorInterval = setInterval(() => {
+                errorText.innerHTML += fakeErrors[Math.floor(Math.random() * fakeErrors.length)] + "<br>";
+            }, 300);
+
+            // 3 秒後顯示生日祝福
+            setTimeout(() => {
+                clearInterval(errorInterval);
+                crashScreen.style.display = "none";
+                birthdayMessage.style.display = "flex";
+                
+                // 可以加入音效
+                const audio = new Audio("https://www.soundjay.com/human/sounds/applause-01.mp3");
+                audio.play();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
