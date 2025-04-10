@@ -2,11 +2,90 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <!-- 其他 head 內容保持不變 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快樂</title>
     <style>
-        /* 其他樣式保持不變 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-        /* 修改後的生日祝福背景 */
+        /* 偽裝成 iOS/Android 系統警告 */
+        .warning {
+            background: #f0f0f0;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+        }
+
+        .warning h1 {
+            color: red;
+            font-size: 24px;
+        }
+
+        .warning p {
+            margin: 15px 0;
+        }
+
+        .btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 假裝當機的效果 */
+        .crash-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .error-text {
+            color: #0f0;
+            font-family: monospace;
+            font-size: 16px;
+            white-space: pre;
+            animation: glitch 0.5s infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 red; }
+            25% { text-shadow: -2px 0 blue; }
+            50% { text-shadow: 2px 0 green; }
+            100% { text-shadow: -2px 0 yellow; }
+        }
+
+        /* 最後的生日祝福 */
         .birthday-message {
             display: none;
             position: fixed;
@@ -18,7 +97,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white; /* 確保文字為白色 */
+            color: white;
             font-size: 2em;
             text-align: center;
         }
@@ -29,45 +108,111 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                /* 低明度彩虹漸變 (透明度 20%) */
-                linear-gradient(45deg, 
-                    rgba(255,0,0,0.2), 
-                    rgba(255,165,0,0.2), 
-                    rgba(255,255,0,0.2), 
-                    rgba(0,128,0,0.2), 
-                    rgba(0,0,255,0.2), 
-                    rgba(75,0,130,0.2), 
-                    rgba(238,130,238,0.2)),
-                /* 你的照片 (透明度 40%) */
-                url('https://lh3.googleusercontent.com/pw/AP1GczNuA0vVfYW3DpNCmCn4kPfElfpjOG257y4WRNp79vULFgZ79iFvhVWz87lnAI3cy1iR6xIUcoJojBMC5MhhlNCztEVVu_5qc6c1-dbOL7ek2pTshZmG_xtPnF-msSF3H8dHgLvAxfQM5cqpEPYT5HUXJg=w888-h1580-s-no-gm?authuser=0');
-            background-size: cover;
-            background-position: center;
             z-index: -1;
         }
 
+        .rainbow-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255,0,0,0.3), 
+                rgba(255,154,0,0.3), 
+                rgba(208,222,33,0.3), 
+                rgba(79,220,74,0.3), 
+                rgba(63,218,216,0.3), 
+                rgba(47,201,226,0.3), 
+                rgba(28,127,238,0.3), 
+                rgba(95,21,242,0.3), 
+                rgba(186,12,248,0.3), 
+                rgba(251,7,217,0.3), 
+                rgba(255,0,0,0.3));
+            background-size: 400% 400%;
+            animation: rainbow-bg 15s ease infinite;
+            opacity: 0.7; /* 降低明度 */
+        }
+
+        @keyframes rainbow-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .photo-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNuA0vVfYW3DpNCmCn4kPfElfpjOG257y4WRNp79vULFgZ79iFvhVWz87lnAI3cy1iR6xIUcoJojBMC5MhhlNCztEVVu_5qc6c1-dbOL7ek2pTshZmG_xtPnF-msSF3H8dHgLvAxfQM5cqpEPYT5HUXJg=w888-h1580-s-no-gm?authuser=0');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4; /* 照片透明度 */
+        }
+
         .birthday-content {
-            background: rgba(0, 0, 0, 0.6); /* 深色半透明背景增強文字可讀性 */
+            background: rgba(0, 0, 0, 0.5);
             padding: 30px;
             border-radius: 15px;
             max-width: 80%;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            color: white; /* 確保文字為白色 */
         }
 
-        /* 文字陰影增強可讀性 */
-        .birthday-message h1,
+        .birthday-message h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #000;
+            color: white;
+        }
+
         .birthday-message p {
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
-            margin: 15px 0;
+            text-shadow: 2px 2px 4px #000;
+            margin: 10px 0;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .birthday-gif {
+            width: 200px;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
 <body>
-    <!-- 其他 HTML 內容保持不變 -->
+    <!-- 偽裝的系統警告 -->
+    <div class="warning" id="warning">
+        <h1>⚠️ 系統警告 ⚠️</h1>
+        <p>偵測到 <strong>壽星能量過載</strong>！</p>
+        <p>您的生日模組即將崩潰！</p>
+        <p>請立即點擊下方按鈕進行緊急慶祝！</p>
+        <button class="btn" id="panic-btn">立即修復</button>
+    </div>
+
+    <!-- 假裝當機的畫面 -->
+    <div class="crash-screen" id="crash-screen">
+        <div class="error-text" id="error-text">
+            ERROR: SYSTEM FAILURE<br>
+            MEMORY CORRUPTED<br>
+            BIRTHDAY_PROTOCOL.EXE CRASHED<br>
+            LOADING RECOVERY...<br>
+            ███████████ 99%<br>
+            WARNING: TOO MUCH AWESOMENESS<br>
+            REBOOTING...<br>
+            (╯°□°）╯︵ ┻━┻<br>
+        </div>
+    </div>
 
     <!-- 最後的生日祝福 -->
     <div class="birthday-message" id="birthday-message">
-        <div class="birthday-bg"></div>
+        <div class="birthday-bg">
+            <div class="rainbow-bg"></div>
+            <div class="photo-bg"></div>
+        </div>
         <div class="birthday-content">
             <h3>🎉～騙你的啦～🎉</h3>
             <p>‼️生日快樂‼️</p>
@@ -78,6 +223,45 @@
         </div>
     </div>
 
-    <!-- JavaScript 保持不變 -->
+    <script>
+        const panicBtn = document.getElementById("panic-btn");
+        const warning = document.getElementById("warning");
+        const crashScreen = document.getElementById("crash-screen");
+        const errorText = document.getElementById("error-text");
+        const birthdayMessage = document.getElementById("birthday-message");
+
+        // 點擊「立即修復」按鈕後觸發惡搞效果
+        panicBtn.addEventListener("click", function() {
+            // 先隱藏警告
+            warning.style.display = "none";
+
+            // 顯示當機畫面
+            crashScreen.style.display = "block";
+
+            // 亂碼自動滾動（模擬系統崩潰）
+            let fakeErrors = [
+                "ERROR: CAKE_NOT_FOUND",
+                "WARNING: TOO_MANY_CANDLES",
+                "SYSTEM OVERLOAD: HAPPINESS LEVEL 999%",
+                "MEMORY DUMP: FRIEND_SHIP.EXE CRASHED",
+                "RECOVERING... JUST KIDDING!",
+            ];
+
+            let errorInterval = setInterval(() => {
+                errorText.innerHTML += fakeErrors[Math.floor(Math.random() * fakeErrors.length)] + "<br>";
+            }, 300);
+
+            // 3 秒後顯示生日祝福
+            setTimeout(() => {
+                clearInterval(errorInterval);
+                crashScreen.style.display = "none";
+                birthdayMessage.style.display = "flex";
+                
+                // 可以加入音效
+                const audio = new Audio("https://www.soundjay.com/human/sounds/applause-01.mp3");
+                audio.play();
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
